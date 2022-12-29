@@ -41,28 +41,28 @@ void loop() {
   DynInd(); // окрашиваем светодиоды
   if(millis() - timer >= speed){  // Работа таймера
     nextStep(); // выбираем следующую расцветку
-    timer = millis();
+    timer = millis(); //Обнуляем таймер
   }
   
 }
 
-void nextStep(){
-  int i = 0;
-  for (int e = 0; e < 3; e++) {
+void nextStep(){ //Выбираем новую расцветку для сетодиодов
+  int i = 0; //переменная, в которой лежит цвет
+  for (int e = 0; e < 3; e++) { //Цикл на 3 раза
     i = random(0, 6); //выбираем случайный цвет из 7
-   for (int Counter = 0; Counter < 3; Counter++) {
-     LedColor[e][Counter] = colors[i][Counter];
+   for (int Counter = 0; Counter < 3; Counter++) { // задаём каждый из 3 параметров
+     LedColor[e][Counter] = colors[i][Counter]; // копирование из исходника в масс
    }
   }
 }
-void DynInd(){
-  int port[3] = { Led1, Led2, Led3 };
-      for (int Counter = 0; Counter < 3; Counter++) {
-      analogWrite(RPin, LedColor[Counter][0]);
-      analogWrite(GPin, LedColor[Counter][1]);
-      analogWrite(BPin, LedColor[Counter][2]);
-      digitalWrite(port[Counter], LOW);
-      delay(1);
+void DynInd(){      // Обнавляем расцветку сетодиодов
+  static int port[3] = { Led1, Led2, Led3 }; // указываем порты gnd светодиодов
+      for (int Counter = 0; Counter < 3; Counter++) { // цикл на обнавление 3 светодиодов
+        for(int i = 0; i < 3; i++){ // цикл на 3 цвета
+          analogWrite(RPin, LedColor[Counter][i]); // пишем яркость
+        }
+      digitalWrite(port[Counter], LOW); // включаем землю на указаном пине
+      delay(1); // чтобы все не смешивалось в белую кашу
       digitalWrite(port[0], HIGH);
       digitalWrite(port[1], HIGH); //Выключаем все светодиоды (ТК это земли HIGH это "LOW" и наоборот)
       digitalWrite(port[2], HIGH);
