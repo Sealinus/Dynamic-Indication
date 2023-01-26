@@ -56,15 +56,15 @@ void nextStep(){                                                // Выбира�
 }
 void DynInd(){                                                  // Обнавляем расцветку сетодиодов
   static int port[3] = { Led1, Led2, Led3 };                    // указываем порты gnd светодиодов
-      for (int Counter = 0; Counter < 3; Counter++) {           // цикл на обнавление 3 светодиодов
-        for(int i = 0; i < 3; i++){                             // цикл на 3 цвета
-          analogWrite(RPin, LedColor[Counter][i]);              // пишем яркость
-        }
-      digitalWrite(port[Counter], LOW);                         // включаем землю на указаном пине
-      delay(1);                                                 // чтобы все не смешивалось в белую кашу
-      digitalWrite(port[0], HIGH);
-      digitalWrite(port[1], HIGH);                              //Выключаем все светодиоды (ТК это земли HIGH это "LOW" и наоборот)
-      digitalWrite(port[2], HIGH);
+      for (int Counter = 0; Counter < 3; Counter++) {           // цикл на обнавление 3 светодиодов                       
+       analogWrite(RPin, LedColor[Counter][0]);
+       analogWrite(GPin, LedColor[Counter][1]);   
+       analogWrite(BPin, LedColor[Counter][2]);                 // пишем яркость
+       digitalWrite(port[Counter], LOW);                        // включаем землю на указаном пине
+       delay(1);                                                // чтобы все не смешивалось в белую кашу
+       digitalWrite(port[0], HIGH);
+       digitalWrite(port[1], HIGH);                             //Выключаем все светодиоды (ТК это земли "HIGH" это "LOW" и наоборот)
+       digitalWrite(port[2], HIGH);
       }
 }
 
